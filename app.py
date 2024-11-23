@@ -105,17 +105,19 @@ while running:
                 found_second_signal = True
                 drone_range = drone_range_final
         else:
-            optimal_pos = find_optimal_position()
-            if calculate_distance(drone_pos, optimal_pos) > drone_speed:
-                if drone_pos[0] < optimal_pos[0]:
+            optimal_pos = calculate_distance(point1, point2)
+            mid = [abs(point2[0] + point1[0])//2, abs(point2[1] + point1[1])//2]
+            if calculate_distance(drone_pos, mid) > 0:
+                if drone_pos[0] < mid[0]:
                     drone_pos[0] += drone_speed
-                elif drone_pos[0] > optimal_pos[0]:
+                elif drone_pos[0] > mid[0]:
                     drone_pos[0] -= drone_speed
 
-                if drone_pos[1] < optimal_pos[1]:
+                if drone_pos[1] < mid[1]:
                     drone_pos[1] += drone_speed
-                elif drone_pos[1] > optimal_pos[1]:
+                elif drone_pos[1] > mid[1]:
                     drone_pos[1] -= drone_speed
+
 
     screen.fill(WHITE)
 

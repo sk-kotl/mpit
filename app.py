@@ -20,9 +20,9 @@ pygame.init()
 
 # Настройки экрана
 SCREEN_WIDTH = 1500
-SCREEN_HEIGHT = 920
+SCREEN_HEIGHT = 910
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Эмуляция полета дрона")
+pygame.display.set_caption("Крылатый репитер пчела | Эмуляция полета дрона")
 
 # Цвета
 WHITE = (255, 255, 255)

@@ -9,6 +9,12 @@ sinr_viv = 0
 shoom_sum = 0 
 shoom_viv = 0
 d = 0
+a = 0
+b = 0
+itogper2_viv = 0
+itogper2_sum = 0
+itogper1_viv = 0
+itogper1_sum = 0
 
 pygame.init()
 
@@ -191,10 +197,24 @@ while running:
         screen.blit(pdpd2, (10, info_y))
         info_y += 30
 
-        itogper1 = 37 - pdpd1 - 10
-        itogper2 = 37 - pspd2 - 10
+        itogper1 = 37 - pdpd1 #- 7
+        itogper1_sum += itogper1
+        a += 1
+        if a == 25:
+            itogper1_viv = itogper1_sum / 25
+            a = 0
+            itogper1_sum = 0
 
-        signal = itogper1
+        itogper2 = 37 - pspd2 #- 5
+        itogper2_sum += itogper2
+        b += 1
+        if b == 25:
+            itogper2_viv = itogper2_sum / 25
+            b = 0
+            itogper2_sum = 0
+        itogper = max(itogper1, itogper2)
+
+        signal = itogper
         linear_signal = math.pow(10, signal/10) * math.pow(10, -3)
         shoom = random.randint(70, 100) * -1 #dBm
 
@@ -204,8 +224,8 @@ while running:
             shoom_viv = shoom_sum / 50
             d = 0
             shoom_sum = 0
-        checkshoom1 = itogper1 - shoom_viv
-        checkshoom2 = itogper2 - shoom_viv
+        checkshoom1 = itogper1_viv - shoom_viv
+        checkshoom2 = itogper2_viv - shoom_viv
         if checkshoom1 < 10:
             status_shoom1 = 'Нет сигнала'
         if 10 < checkshoom1 < 20:
@@ -223,11 +243,15 @@ while running:
         if checkshoom2 > 30:
             status_shoom2 = 'Хороший сигнал'
 
-        itogper1pr = font.render(f"Итоговое получение сигнала для первой точки равна {itogper1:.2f} дБм ({status_shoom1})", True, BLACK)
-        itogper2pr = font.render(f"Итоговая получение сигнала для второй тчоки равна {itogper2:.2f} дБм ({status_shoom2})", True, BLACK)
+        itogper1pr = font.render(f"Итоговое получение сигнала для первой точки равна {itogper1_viv:.2f} дБм ({status_shoom1})", True, BLACK)
+        itogper2pr = font.render(f"Итоговая получение сигнала для второй тчоки равна {itogper2_viv:.2f} дБм ({status_shoom2})", True, BLACK)
         screen.blit(itogper1pr, (10, info_y))
         info_y += 30
         screen.blit(itogper2pr, (10, info_y))
+        info_y += 30
+
+        itogperpr = font.render(f"Самый большой сигнал: {min(itogper1, itogper2):.2f} Дб", True, BLACK)
+        screen.blit(itogperpr, (10, info_y))
         info_y += 30
 
         linear_shoom = math.pow(10, shoom/10) * math.pow(10, -3)

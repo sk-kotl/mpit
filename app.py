@@ -61,7 +61,6 @@ selecting_points = True
 found_second_signal = False
 drone_range = drone_range_initial
 
-# Цикл игры
 clock = pygame.time.Clock()
 running = True
 

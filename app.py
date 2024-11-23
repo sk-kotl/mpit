@@ -167,31 +167,16 @@ while running:
     else:
         distance_to_point2 = None
 
-    # Отображение координат точек и расстояний в верхнем левом углу
-    info_y = 50  # Начальная вертикальная позиция для информации
-    # if point1:
-    #     coord_text1 = font.render(f"Геолог 1: ({point1[0]}, {point1[1]})", True, BLACK)
-    #     screen.blit(coord_text1, (10, info_y))
-    #     info_y += 30  # Смещение для следующей строки
-
-    # if point2:
-    #     coord_text2 = font.render(f"Геолог 2: ({point2[0]}, {point2[1]})", True, BLACK)
-    #     screen.blit(coord_text2, (10, info_y))
-    #     info_y += 30
+    # Отображение информации в верхнем левом углу
+    info_y = 50 
 
     if distance_to_point1 is not None:
-        # distance_text1 = font.render(f"Расстояние от точки 1 до дрона: {distance_to_point1/10:.2f}", True, BLACK)
-        # screen.blit(distance_text1, (10, info_y))
-        # info_y += 30
         pdpd1 = (32.45 + 20 * math.log10(distance_to_point1/10) + 20 * math.log10(27))
         pspd1 = font.render(f"Потери пути свободное пространство от 1 точки: {pdpd1:.2f} дБ", True, BLACK)
         screen.blit(pspd1, (10,info_y))
         info_y += 30
 
     if distance_to_point2 is not None:
-        # distance_text2 = font.render(f"Расстояние от дрона до точки 2: {distance_to_point2/10:.2f}", True, BLACK)
-        # screen.blit(distance_text2, (10, info_y))
-        # info_y += 30
         pspd2 = (32.45 + 20 * math.log10(distance_to_point2/10) + 20 * math.log10(27))
         pdpd2 = font.render(f"Потери пути свободного пространства от 2 точки: {pspd2:.2f} Дб", True, BLACK)
         screen.blit(pdpd2, (10, info_y))
